@@ -8,30 +8,25 @@
 </head>
 <body>
 
-  <div class="formulario-contenedor" form action="https://formsubmit.co/ailinriveraflores@gmail.com" method="POST">
-    <h1>Regístrate y Envía tu Pedido</h1>
-    <form id="pedido-form">
-      <label for="nombre">Nombre:</label>
-      <input type="text" name="nombre" id="nombre" required />
+ <form action="https://formsubmit.co/ailinriveraflores@gmail.com" method="POST" id="pedido-form">
+  <label for="nombre">Nombre:</label>
+  <input type="text" name="nombre" id="nombre" required />
 
-      <label for="correo">Correo electrónico:</label>
-      <input type="email" name="correo" id="correo" required />
+  <label for="email">Correo electrónico:</label>
+  <input type="email" name="email" id="correo" required />
 
-      <label for="fecha">¿Para cuándo quieres tu pedido?</label>
-      <input type="date" name="fecha" id="fecha" required />
+  <label for="fecha">¿Para cuándo quieres tu pedido?</label>
+  <input type="date" name="fecha" id="fecha" required />
 
-      <label for="pedido">Tu pedido:</label>
-      <textarea name="pedido" id="pedido" rows="6" required></textarea>
+  <label for="pedido">Tu pedido:</label>
+  <textarea name="pedido" id="pedido" rows="6" required></textarea>
 
-      <button type="submit" class="boton-pagar">Encargar 💌</button>
-    </form>
-  </div>
+  <input type="hidden" name="_captcha" value="false">
+  <button type="submit" class="boton-pagar">Encargar 💌</button>
+</form>
 
   <div class="contenedor-boton" style="text-align:center; margin-top: 30px;">
     <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
   </div>
-
-
-
 </body>
 </html>
