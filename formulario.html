@@ -4,12 +4,13 @@
   <meta charset="UTF-8" />
   <title>Formulario de Pedido</title>
   <link rel="stylesheet" href="formulario1.css" />
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body>
 
   <div class="formulario-contenedor">
     <h1>Regístrate y Envía tu Pedido</h1>
-    <form action="procesar.php" method="POST">
+    <form id="pedido-form">
       <label for="nombre">Nombre:</label>
       <input type="text" name="nombre" id="nombre" required />
 
@@ -22,51 +23,48 @@
       <label for="pedido">Tu pedido:</label>
       <textarea name="pedido" id="pedido" rows="6" readonly required></textarea>
 
-      <button type="submit">Enviar Pedido</button>
+      <button type="submit" class="boton-pagar">Encargar 💌</button>
     </form>
- 
+  </div>
 
-  <div class="botones-carrito">
-      <button class="boton-pagar" onclick="enviarPedido()">Encargar 💳</button>
-    </div>
-  </main>
-<script src="jimenaugalde406@gmail.com"></script>
-<script>
+  <div class="contenedor-boton" style="text-align:center; margin-top: 30px;">
+    <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
+  </div>
 
-  emailjs.init("service_g3ax8dn");
+  <script>
+    // Inicializar EmailJS con tu clave pública
+    emailjs.init("8WK-K2H7FQwWPoka7"); // ← reemplaza con tu PUBLIC KEY de EmailJS
 
-  const form = document.getElementById("pedido-form");
-  const pedidoCampo = document.getElementById("pedido");
+    const formulario = document.getElementById("pedido-form");
+    const campoPedido = document.getElementById("pedido");
 
-  const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    // Leer productos desde el carrito
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
-  if (carrito.length > 0) {
-    const resumen = carrito.map(p => `${p.nombre} - $${p.precio}`).join("\n");
-    const total = carrito.reduce((acc, p) => acc + p.precio, 0);
-    pedidoCampo.value = `${resumen}\n\nTotal: $${total.toFixed(2)} MXN`;
-  } else {
-    pedidoCampo.value = "Tu carrito está vacío.";
-  }
+    if (carrito.length > 0) {
+      const resumen = carrito.map(item => `• ${item.nombre} - $${item.precio}`).join('\n');
+      const total = carrito.reduce((acc, item) => acc + item.precio, 0);
+      campoPedido.value = `${resumen}\n\nTotal: $${total.toFixed(2)} MXN`;
+    } else {
+      campoPedido.value = "Tu carrito está vacío.";
+    }
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
+    // Enviar formulario con EmailJS
+    formulario.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
-      .then(() => {
-        alert("✅ Pedido enviado correctamente.");
-        localStorage.removeItem("carrito");
-        window.location.href = "index.html";
-      }, (error) => {
-        alert("❌ Error al enviar: " + JSON.stringify(error));
-      });
-  });
-</script>
-
+      emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
+        .then(() => {
+          alert("✅ Pedido enviado correctamente.");
+          localStorage.removeItem("carrito");
+          window.location.href = "index.html";
+        }, (error) => {
+          alert("❌ Error al enviar: " + JSON.stringify(error));
+        });
+    });
   </script>
- </div>
-<div class="contenedor-boton">
-  <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
-</div>
+
 </body>
 </html>
+
 
