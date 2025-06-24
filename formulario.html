@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <title>Formulario de Pedido</title>
   <link rel="stylesheet" href="formulario1.css" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Para alertas bonitas -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #fff0f5;
-      margin: 0;
+      margin: 0; 
       padding: 0;
     }
 
@@ -125,7 +125,6 @@
       campoPedido.value = "Tu carrito está vacío.";
     }
 
-    // Limpia el carrito al enviar el formulario
     const formulario = document.getElementById("pedido-form");
     formulario.addEventListener("submit", function () {
       localStorage.removeItem("carrito");
