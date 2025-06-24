@@ -30,6 +30,21 @@
   <div class="contenedor-boton" style="text-align:center; margin-top: 30px;">
     <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
   </div>
+formulario.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Forzar que el campo contenga el pedido actualizado
+  formulario.pedido.value = campoPedido.value;
+
+  emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
+    .then(() => {
+      alert("✅ Pedido enviado correctamente.");
+      localStorage.removeItem("carrito");
+      window.location.href = "index.html";
+    }, (error) => {
+      alert("❌ Error al enviar: " + JSON.stringify(error));
+    });
+});
 
   <script>
     // Inicializa EmailJS con tu clave pública
