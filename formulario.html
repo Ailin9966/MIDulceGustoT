@@ -24,16 +24,16 @@
 
       <button type="submit">Enviar Pedido</button>
     </form>
-  </div>
-<div class="contenedor-boton">
-  <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
-</div>
+ 
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <div class="botones-carrito">
+      <button class="boton-pagar" onclick="enviarPedido()">Encargar 💳</button>
+    </div>
+  </main>
+<script src="jimenaugalde406@gmail.com"></script>
 <script>
-  // Inicializa con tu user ID de EmailJS
-  emailjs.init("service_gtzc1jr");
+
+  emailjs.init("service_g3ax8dn");
 
   const form = document.getElementById("pedido-form");
   const pedidoCampo = document.getElementById("pedido");
@@ -51,11 +51,11 @@
   form.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    emailjs.sendForm("service_gtzc1jr", "template_cazd92d", this)
+    emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
       .then(() => {
         alert("✅ Pedido enviado correctamente.");
         localStorage.removeItem("carrito");
-        window.location.href = "inicio.html";
+        window.location.href = "index.html";
       }, (error) => {
         alert("❌ Error al enviar: " + JSON.stringify(error));
       });
@@ -63,7 +63,10 @@
 </script>
 
   </script>
-
+ </div>
+<div class="contenedor-boton">
+  <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
+</div>
 </body>
 </html>
 
