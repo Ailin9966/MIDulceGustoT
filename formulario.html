@@ -4,29 +4,134 @@
   <meta charset="UTF-8" />
   <title>Formulario de Pedido</title>
   <link rel="stylesheet" href="formulario1.css" />
-  <script src="Pedido embiado"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Para alertas bonitas -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .formulario-contenedor {
+      max-width: 500px;
+      background-color: #ffffff;
+      margin: 60px auto;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #d63384;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #5e005e;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 5px;
+      border: 1px solid #ffcce0;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .boton-pagar {
+      background: linear-gradient(to right, #fba1d0, #ffd6eb);
+      color: #6b1a78;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      margin-top: 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    .boton-pagar:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #ffd6eb, #fba1d0);
+    }
+
+    .contenedor-boton {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .boton-regresar {
+      color: white;
+      background-color: #d63384;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    .boton-regresar:hover {
+      background-color: #f368a4;
+    }
+  </style>
 </head>
 <body>
 
- <form action="https://formsubmit.co/2d21d9464ea5ae0bc3d7a4471669a961 " method="POST" id="pedido-form">
-  <label for="nombre">Nombre:</label>
-  <input type="text" name="nombre" id="nombre" required />
+  <div class="formulario-contenedor">
+    <h1>Regístrate y Envía tu Pedido</h1>
+    <form action="https://formsubmit.co/2d21d9464ea5ae0bc3d7a4471669a961" method="POST" id="pedido-form">
+      <label for="nombre">Nombre:</label>
+      <input type="text" name="nombre" id="nombre" required />
 
-  <label for="email">Correo electrónico:</label>
-  <input type="email" name="email" id="correo" required />
+      <label for="email">Correo electrónico:</label>
+      <input type="email" name="email" id="correo" required />
 
-  <label for="fecha">¿Para cuándo quieres tu pedido?</label>
-  <input type="date" name="fecha" id="fecha" required />
+      <label for="fecha">¿Para cuándo quieres tu pedido?</label>
+      <input type="date" name="fecha" id="fecha" required />
 
-  <label for="pedido">Tu pedido:</label>
-  <textarea name="pedido" id="pedido" rows="6" required></textarea>
+      <label for="pedido">Tu pedido:</label>
+      <textarea name="pedido" id="pedido" rows="6" required></textarea>
 
-  <input type="hidden" name="_captcha" value="false">
-  <button type="submit" class="boton-pagar">Encargar 💌</button>
-</form>
+      <input type="hidden" name="_captcha" value="false">
+      <button type="submit" class="boton-pagar">Encargar 💌</button>
+    </form>
+  </div>
 
-  <div class="contenedor-boton" style="text-align:center; margin-top: 30px;">
+  <div class="contenedor-boton">
     <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
   </div>
+
+  <script>
+    const campoPedido = document.getElementById("pedido");
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    if (carrito.length > 0) {
+      const resumen = carrito.map(p => `• ${p.nombre} - $${p.precio}`).join("\n");
+      const total = carrito.reduce((acc, p) => acc + p.precio, 0).toFixed(2);
+      campoPedido.value = `${resumen}\n\nTotal: $${total} MXN`;
+    } else {
+      campoPedido.value = "Tu carrito está vacío.";
+    }
+
+    // Limpia el carrito al enviar el formulario
+    const formulario = document.getElementById("pedido-form");
+    formulario.addEventListener("submit", function () {
+      localStorage.removeItem("carrito");
+    });
+  </script>
+
 </body>
 </html>
+
