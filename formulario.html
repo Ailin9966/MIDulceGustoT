@@ -21,7 +21,7 @@
       <input type="date" name="fecha" id="fecha" required />
 
       <label for="pedido">Tu pedido:</label>
-      <textarea name="pedido" id="pedido" rows="6" readonly required></textarea>
+      <textarea name="pedido" id="pedido" rows="6" required></textarea>
 
       <button type="submit" class="boton-pagar">Encargar 💌</button>
     </form>
@@ -30,45 +30,15 @@
   <div class="contenedor-boton" style="text-align:center; margin-top: 30px;">
     <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
   </div>
-formulario.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // Forzar que el campo contenga el pedido actualizado
-  formulario.pedido.value = campoPedido.value;
-
-  emailjs.sendForm("service_g3ax8dn", "formulario.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // Forzar que el campo contenga el pedido actualizado
-  formulario.pedido.value = campoPedido.value;
-
-  emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
-    .then(() => {
-      alert("✅ Pedido enviado correctamente.");
-      localStorage.removeItem("carrito");
-      window.location.href = "index.html";
-    }, (error) => {
-      alert("❌ Error al enviar: " + JSON.stringify(error));
-    });
-});
-", this)
-    .then(() => {
-      alert("✅ Pedido enviado correctamente.");
-      localStorage.removeItem("carrito");
-      window.location.href = "index.html";
-    }, (error) => {
-      alert("❌ Error al enviar: " + JSON.stringify(error));
-    });
-});
 
   <script>
-    // Inicializa EmailJS con tu clave pública
-    emailjs.init("8WK-K2H7FQwWPoka7"); // ← Asegúrate que sea tu Public Key válida
+    // Inicializar EmailJS
+    emailjs.init("8WK-K2H7FQwWPoka7"); // Reemplaza con tu Public Key real
 
     const formulario = document.getElementById("pedido-form");
     const campoPedido = document.getElementById("pedido");
 
-    // Obtener carrito desde localStorage y rellenar el campo del pedido
+    // Cargar el carrito desde localStorage y mostrar en el campo de pedido
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     if (carrito.length > 0) {
@@ -79,29 +49,14 @@ formulario.addEventListener("submit", function (e) {
       campoPedido.value = "Tu carrito está vacío.";
     }
 
-    // Enviar formulario a través de EmailJS
+    // Enviar el formulario con EmailJS
     formulario.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Asegura que el textarea tenga el valor actualizado antes de enviar
+      // Refrescar el valor en caso de cambios
       formulario.pedido.value = campoPedido.value;
 
-      emailjs.sendForm("service_g3ax8dn", "formulario.addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // Forzar que el campo contenga el pedido actualizado
-  formulario.pedido.value = campoPedido.value;
-
-  emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
-    .then(() => {
-      alert("✅ Pedido enviado correctamente.");
-      localStorage.removeItem("carrito");
-      window.location.href = "index.html";
-    }, (error) => {
-      alert("❌ Error al enviar: " + JSON.stringify(error));
-    });
-});
-", formulario)
+      emailjs.sendForm("service_g3ax8dn", "template_752ioo9", formulario)
         .then(() => {
           alert("✅ Pedido enviado correctamente.");
           localStorage.removeItem("carrito");
@@ -115,8 +70,5 @@ formulario.addEventListener("submit", function (e) {
 </body>
 </html>
 
-
-</body>
-</html>
 
 
