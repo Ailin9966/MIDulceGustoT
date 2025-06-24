@@ -32,13 +32,12 @@
   </div>
 
   <script>
-    // Inicializar EmailJS con tu Public Key real
-    emailjs.init("8WK-K2H7FQwWPoka7");
+    emailjs.init("8WK-K2H7FQwWPoka7"); // ← tu Public Key
 
     const formulario = document.getElementById("pedido-form");
     const campoPedido = document.getElementById("pedido");
 
-    // Obtener el carrito desde localStorage y mostrar el contenido
+    // Obtener carrito del localStorage
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     if (carrito.length > 0) {
@@ -49,14 +48,14 @@
       campoPedido.value = "Tu carrito está vacío.";
     }
 
-    // Enviar el formulario con EmailJS
+    // Enviar el formulario por EmailJS
     formulario.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // Asegurar que el campo 'pedido' esté actualizado antes del envío
+      // Refrescar valor del textarea en el form por seguridad
       formulario.pedido.value = campoPedido.value;
 
-      emailjs.sendForm("service_g3ax8dn", "template_752ioo9", formulario)
+      emailjs.sendForm("service_g3ax8dn", "template_h24a0vk", formulario)
         .then(() => {
           alert("✅ Pedido enviado correctamente.");
           localStorage.removeItem("carrito");
@@ -69,10 +68,3 @@
 
 </body>
 </html>
-
-
-</body>
-</html>
-
-
-
