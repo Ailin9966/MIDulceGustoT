@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <div class="formulario-contenedor">
+  <div class="formulario-contenedor" form action="https://formsubmit.co/ailinriveraflores@gmail.com" method="POST">
     <h1>Regístrate y Envía tu Pedido</h1>
     <form id="pedido-form">
       <label for="nombre">Nombre:</label>
@@ -31,37 +31,7 @@
     <a href="index.html" class="boton-regresar">🌸 Página Inicio</a>
   </div>
 
-  <script>
-    emailjs.init("8WK-K2H7FQwWPoka7"); // ← tu Public Key
 
-    const formulario = document.getElementById("pedido-form");
-    const campoPedido = document.getElementById("pedido");
-
-    // Obtener carrito del localStorage
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    if (carrito.length > 0) {
-      const resumen = carrito.map(item => `• ${item.nombre} - $${item.precio}`).join('\n');
-      const total = carrito.reduce((sum, item) => sum + item.precio, 0);
-      campoPedido.value = `${resumen}\n\nTotal: $${total.toFixed(2)} MXN`;
-    } else {
-      campoPedido.value = "Tu carrito está vacío.";
-    }
-
-    // Enviar el formulario por EmailJS
-    formulario.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      // Refrescar valor del textarea en el form por seguridad
-      formulario.pedido.value = campoPedido.value;
-
-      emailjs.sendForm("service_g3ax8dn", "template_h24a0vk", formulario)
-        .then(() => {
-          alert("✅ Pedido enviado correctamente.");
-          localStorage.removeItem("carrito");
-        });
-    });
-  </script>
 
 </body>
 </html>
