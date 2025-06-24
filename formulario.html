@@ -32,28 +32,31 @@
   </div>
 
   <script>
-    // Inicializar EmailJS con tu clave pública
-    emailjs.init("8WK-K2H7FQwWPoka7"); // ← reemplaza con tu PUBLIC KEY de EmailJS
+    // Inicializa EmailJS con tu clave pública
+    emailjs.init("8WK-K2H7FQwWPoka7"); // ← Asegúrate que sea tu Public Key válida
 
     const formulario = document.getElementById("pedido-form");
     const campoPedido = document.getElementById("pedido");
 
-    // Leer productos desde el carrito
+    // Obtener carrito desde localStorage y rellenar el campo del pedido
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
     if (carrito.length > 0) {
       const resumen = carrito.map(item => `• ${item.nombre} - $${item.precio}`).join('\n');
-      const total = carrito.reduce((acc, item) => acc + item.precio, 0);
+      const total = carrito.reduce((sum, item) => sum + item.precio, 0);
       campoPedido.value = `${resumen}\n\nTotal: $${total.toFixed(2)} MXN`;
     } else {
       campoPedido.value = "Tu carrito está vacío.";
     }
 
-    // Enviar formulario con EmailJS
+    // Enviar formulario a través de EmailJS
     formulario.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      emailjs.sendForm("service_g3ax8dn", "template_752ioo9", this)
+      // Asegura que el textarea tenga el valor actualizado antes de enviar
+      formulario.pedido.value = campoPedido.value;
+
+      emailjs.sendForm("service_g3ax8dn", "template_752ioo9", formulario)
         .then(() => {
           alert("✅ Pedido enviado correctamente.");
           localStorage.removeItem("carrito");
@@ -63,6 +66,10 @@
         });
     });
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
